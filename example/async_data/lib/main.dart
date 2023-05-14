@@ -2,15 +2,16 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
       home: AsyncDataExampleHomePage(),
     );
@@ -18,8 +19,10 @@ class MyApp extends StatelessWidget {
 }
 
 class AsyncDataExampleHomePage extends StatefulWidget {
+  const AsyncDataExampleHomePage({super.key});
+
   @override
-  _AsyncDataExampleHomePageState createState() =>
+  State<AsyncDataExampleHomePage> createState() =>
       _AsyncDataExampleHomePageState();
 }
 
@@ -50,13 +53,13 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("asynchronous data events demo"),
+        title: const Text("asynchronous data events demo"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'Added image appears on top:',
             ),
             StreamBuilder<List<String>>(
@@ -64,11 +67,11 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage>
               initialData: welcomeImages,
               builder:
                   (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-                print('snapshot.data.length: ${snapshot.data!.length}');
+                debugPrint('snapshot.data.length: ${snapshot.data!.length}');
                 if (snapshot.hasError) return Text('Error: ${snapshot.error}');
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
-                    return Text('Add image');
+                    return const Text('Add image');
                   case ConnectionState.waiting:
                   // TODO: Handle this case.
                   case ConnectionState.active:
@@ -93,7 +96,7 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage>
       floatingActionButton: FloatingActionButton(
         onPressed: _addToStream,
         tooltip: 'Add image',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -103,7 +106,7 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage>
     CardController controller; //Use this to trigger swap.
 
     return Center(
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.6,
         child: TinderSwapCard(
           orientation: AmassOrientation.bottom,
@@ -115,7 +118,7 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage>
           minWidth: MediaQuery.of(context).size.width * 0.8,
           minHeight: MediaQuery.of(context).size.width * 0.8,
           cardBuilder: (context, index) => Card(
-            child: Image.asset('${imageList[index]}'),
+            child: Image.asset(imageList[index]),
           ),
           cardController: controller = CardController(),
           swipeUpdateCallback: (DragUpdateDetails details, Alignment align) {

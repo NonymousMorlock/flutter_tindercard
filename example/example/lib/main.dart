@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -12,14 +14,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ExampleHomePage(),
+      home: const ExampleHomePage(),
     );
   }
 }
 
 class ExampleHomePage extends StatefulWidget {
+  const ExampleHomePage({super.key});
+
   @override
-  _ExampleHomePageState createState() => _ExampleHomePageState();
+  State<ExampleHomePage> createState() => _ExampleHomePageState();
 }
 
 class _ExampleHomePageState extends State<ExampleHomePage>
@@ -37,11 +41,11 @@ class _ExampleHomePageState extends State<ExampleHomePage>
   Widget build(BuildContext context) {
     CardController controller; //Use this to trigger swap.
 
-    return new Scaffold(
-      body: new Center(
-        child: Container(
+    return Scaffold(
+      body: Center(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.6,
-          child: new TinderSwapCard(
+          child: TinderSwapCard(
             swipeUp: true,
             swipeDown: true,
             orientation: AmassOrientation.bottom,
@@ -53,7 +57,7 @@ class _ExampleHomePageState extends State<ExampleHomePage>
             minWidth: MediaQuery.of(context).size.width * 0.8,
             minHeight: MediaQuery.of(context).size.width * 0.8,
             cardBuilder: (context, index) => Card(
-              child: Image.asset('${welcomeImages[index]}'),
+              child: Image.asset(welcomeImages[index]),
             ),
             cardController: controller = CardController(),
             swipeUpdateCallback: (DragUpdateDetails details, Alignment align) {
